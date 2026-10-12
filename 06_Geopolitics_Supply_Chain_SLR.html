@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geopolitics and Supply Chains | Systematic review | Samrat Das</title>
+<meta name="description" content="A PRISMA systematic literature review of how regional geopolitical disruptions reshape global supply chain strategy and resilience: 1,991 records screened to 10 studies.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1,991 records, 10 studies: how geopolitics reshapes supply chains">
+<meta property="og:description" content="Systematic literature review, MSc Global Operations and Supply Chain Management, Maynooth University. Four themes and a Disruption, Response, Reconfiguration framework.">
+<script>
+(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=q||localStorage.getItem('sd-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);if(q)localStorage.setItem('sd-theme',q);}}catch(e){}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: a single reading column like a journal article, with the PRISMA screening funnel as the page's centrepiece. */
+:root{
+  --sea:#13324A;        /* deep shipping-lane navy */
+  --paper:#FBFBF8;      /* chart paper */
+  --panel:#EEF2F4;      /* tinted panel, sea-biased grey */
+  --ink:#14212B;
+  --text:#2B3A45;
+  --muted:#5C6B76;
+  --rule:#D3DBE0;
+  --route:#C8562B;      /* rerouting orange: the Cape detour */
+  --lane:#2E7D8C;       /* lane teal for kept records */
+  --serif:"Newsreader",Georgia,serif;
+  --sans:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --sea:#0B1A26; --paper:#0F171E; --panel:#17222B; --ink:#E9EEF2; --text:#CBD5DC; --muted:#93A2AD; --rule:#2A3742;
+    --route:#E8825A; --lane:#5EB7C6; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --sea:#0B1A26; --paper:#0F171E; --panel:#17222B; --ink:#E9EEF2; --text:#CBD5DC; --muted:#93A2AD; --rule:#2A3742;
+  --route:#E8825A; --lane:#5EB7C6; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--ink);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--route);outline-offset:3px;border-radius:3px}
+.wrap{max-width:760px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--serif);color:var(--ink);text-wrap:balance;margin:0}
+h2{font-size:clamp(26px,4vw,32px);font-weight:600;line-height:1.15;margin-bottom:14px}
+h3{font-size:20px;font-weight:600;line-height:1.25}
+p{margin:0 0 14px}
+.k{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+section{padding-block:44px;border-top:1px solid var(--rule)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top-in{max-width:760px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top-in > a{font-family:var(--serif);font-weight:600;font-size:18px;text-decoration:none}
+.top .r{display:flex;align-items:center;gap:14px}
+.back{font-size:14px;font-weight:600}
+.theme{background:none;border:1px solid var(--rule);border-radius:8px;width:36px;height:36px;display:grid;place-items:center;color:var(--ink);cursor:pointer}
+.theme svg{width:18px;height:18px}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block} :root[data-theme="dark"] .theme .moon{display:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .theme .sun{display:block}:root:not([data-theme="light"]) .theme .moon{display:none}}
+
+/* hero */
+.hero{padding-block:48px 36px}
+.hero h1{font-size:clamp(34px,6vw,52px);font-weight:600;line-height:1.05;letter-spacing:-.01em;margin-bottom:18px}
+.hero h1 em{font-style:italic;color:var(--route);font-weight:400}
+.rq{font-family:var(--serif);font-size:21px;line-height:1.45;color:var(--ink);border-left:3px solid var(--lane);padding:2px 0 2px 16px;margin:0 0 22px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+
+/* role */
+.role{background:var(--panel);border-radius:10px;padding:22px 22px 8px}
+.role ul{margin:0 0 14px;padding-left:20px}
+.role li{margin-bottom:6px}
+
+/* PRISMA funnel */
+.funnel{display:grid;gap:10px;margin:22px 0 10px}
+.stage{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;align-items:end}
+.stage .lbl{font-size:15px;color:var(--ink);font-weight:600;min-width:0}
+.stage .lbl span{display:block;font-weight:400;color:var(--muted);font-size:13.5px}
+.stage .n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:22px;font-weight:600;color:var(--ink);text-align:right}
+.bar{grid-column:1 / -1;height:14px;background:var(--panel);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--lane);border-radius:3px;min-width:4px}
+.stage.final .n{color:var(--route)}
+.stage.final .bar i{background:var(--route)}
+.out{font-family:var(--mono);font-size:13px;color:var(--muted);padding-left:12px;border-left:2px dashed var(--rule);margin:-2px 0 2px}
+.dbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+.db{border:1px solid var(--rule);border-radius:8px;padding:10px 12px}
+.db b{display:block;font-family:var(--mono);font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums}
+.db span{font-size:13.5px;color:var(--muted)}
+.note{font-size:14px;color:var(--muted)}
+
+/* protocol */
+.pico{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:16px 0 18px}
+.pico div{background:var(--panel);border-radius:8px;padding:12px 14px;font-size:15px}
+.pico b{display:block;font-family:var(--mono);color:var(--lane);font-size:13px;letter-spacing:.06em;margin-bottom:4px}
+.code{overflow-x:auto;background:var(--sea);color:#E9EEF2;border-radius:8px;padding:14px 16px;font-family:var(--mono);font-size:13.5px;line-height:1.6;margin:0 0 14px}
+.code .op{color:#F0A27E}
+
+/* episodes */
+.eps{display:grid;gap:8px;margin-top:14px}
+.ep{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule)}
+.ep:last-child{border-bottom:0}
+.ep .dots{display:flex;gap:4px}
+.ep .dots i{width:10px;height:10px;border-radius:50%;background:var(--lane)}
+.ep .dots i.off{background:var(--rule)}
+
+/* themes */
+.themes{display:grid;gap:22px;margin-top:8px}
+.theme-item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 16px}
+.theme-item .no{font-family:var(--serif);font-size:30px;line-height:1;color:var(--route);font-weight:600;padding-top:2px}
+.theme-item p{margin:6px 0 0;font-size:16px}
+
+/* framework */
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 8px;position:relative}
+.layer{border:1.5px solid var(--ink);border-radius:10px;padding:14px;background:var(--paper)}
+.layer .k{margin-bottom:6px;color:var(--lane)}
+.layer h3{font-size:19px;margin-bottom:6px}
+.layer p{font-size:14.5px;margin:0}
+.loop{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--route);font-weight:600;margin:6px 0 0}
+.loop::before{content:"";flex:0 0 28px;height:2px;background:var(--route)}
+@media (max-width:620px){.flow{grid-template-columns:1fr}}
+
+/* figures */
+.figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+.fig{border-top:3px solid var(--route);padding-top:10px}
+.fig b{display:block;font-family:var(--serif);font-size:30px;color:var(--ink);line-height:1.1;margin-bottom:4px}
+.fig span{font-size:14.5px}
+.fig cite{display:block;font-style:normal;font-size:12.5px;color:var(--muted);margin-top:4px}
+
+.impl{margin:0;padding-left:20px}
+.impl li{margin-bottom:10px}
+
+footer{border-top:1px solid var(--rule);padding-block:30px 48px;font-size:14px;color:var(--muted)}
+footer .cx{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <a href="#">Samrat Das</a>
+    <div class="r"><a class="back" href="https://claude.ai/artifact/No8ZowJc8AGERScSrxWYuy">Back to portfolio</a>
+      <button class="theme" type="button" aria-label="Switch to dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <p class="k">Systematic literature review · Group project</p>
+    <h1>1,991 records, ten studies, <em>one question</em> about geopolitics and supply chains</h1>
+    <p class="rq">How do regional geopolitical disruptions reshape global supply chain strategies and operational resilience?</p>
+    <div class="meta">
+      <span><b>Module</b> Global Operations &amp; Supply Chain Management</span>
+      <span><b>Where</b> MSc Business Management, Maynooth University</span>
+      <span><b>When</b> May 2026</span>
+      <span><b>Team</b> Five students</span>
+    </div>
+  </div>
+
+  <section aria-labelledby="role-h">
+    <div class="role">
+      <p class="k">My role</p>
+      <h2 id="role-h">I built the frame: question, method and conclusion</h2>
+      <ul>
+        <li>Wrote the <b>Introduction</b>, setting out the agreed research question and the five geopolitical episodes in scope.</li>
+        <li>Led the <b>Methodology</b>: drafted the inclusion and exclusion criteria, recorded and interpreted the database search counts, and documented the PRISMA screening process and the rationale for thematic synthesis.</li>
+        <li>Wrote the <b>Conclusion</b>, drawing the four themes and the framework into one finding, and contributed to the managerial implications.</li>
+      </ul>
+      <p class="note">I chose these sections because they meant understanding every part of the paper. Framing a question, designing an analytical process and stating a clear conclusion is the same sequence as a consulting engagement.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="prisma-h">
+    <p class="k">PRISMA 2020 screening</p>
+    <h2 id="prisma-h">From 1,991 records to ten</h2>
+    <p>Four databases were searched in March 2026. Each stage below is drawn to scale, which is the point: the final ten are a sliver of what the search returned.</p>
+    <div class="funnel">
+      <div class="stage"><div class="lbl">Records identified<span>Scopus, Web of Science, ScienceDirect, Emerald Insight</span></div><div class="n">1,991</div><div class="bar"><i style="width:100%"></i></div></div>
+      <div class="out">547 duplicates removed</div>
+      <div class="stage"><div class="lbl">Titles and abstracts screened</div><div class="n">1,444</div><div class="bar"><i style="width:72.5%"></i></div></div>
+      <div class="out">1,247 excluded, e.g. no geopolitical framing, or pandemic and natural disaster focus only</div>
+      <div class="stage"><div class="lbl">Full texts sought</div><div class="n">197</div><div class="bar"><i style="width:9.9%"></i></div></div>
+      <div class="out">14 could not be retrieved</div>
+      <div class="stage"><div class="lbl">Full texts assessed for eligibility</div><div class="n">183</div><div class="bar"><i style="width:9.2%"></i></div></div>
+      <div class="out">173 excluded, e.g. purely domestic scope, not indexed in Scopus or WoS, below the quality threshold</div>
+      <div class="stage final"><div class="lbl">Studies included in the synthesis</div><div class="n">10</div><div class="bar"><i style="width:.5%"></i></div></div>
+    </div>
+    <div class="dbs" aria-label="Records by database">
+      <div class="db"><b>875</b><span>Scopus</span></div>
+      <div class="db"><b>611</b><span>Web of Science</span></div>
+      <div class="db"><b>342</b><span>ScienceDirect</span></div>
+      <div class="db"><b>163</b><span>Emerald Insight</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="proto-h">
+    <p class="k">Protocol</p>
+    <h2 id="proto-h">How the question was made searchable</h2>
+    <p>The review was framed with an adapted PICO structure, then turned into one Boolean string run on titles, abstracts and keywords. Peer-reviewed English-language journal articles only; quality was appraised with criteria adapted from the Mixed Methods Appraisal Tool.</p>
+    <div class="pico">
+      <div><b>P · POPULATION</b>Global supply chains and firms in international production networks</div>
+      <div><b>I · INTEREST</b>Trade wars, armed conflict, export controls, sanctions, regional crises</div>
+      <div><b>C · COMPARISON</b>Supply chains exposed to equivalent geopolitical stress</div>
+      <div><b>O · OUTCOME</b>Changes in architecture, resilience, performance and governance</div>
+    </div>
+    <pre class="code">("geopolitical" <span class="op">OR</span> "trade war" <span class="op">OR</span> "sanctions" <span class="op">OR</span> "conflict")
+<span class="op">AND</span> ("supply chain" <span class="op">OR</span> "global value chain" <span class="op">OR</span> "logistics")
+<span class="op">AND</span> ("disruption" <span class="op">OR</span> "resilience" <span class="op">OR</span> "restructuring" <span class="op">OR</span> "reshoring")</pre>
+    <p class="note">Synthesis followed Thomas and Harden's three stages: line-by-line coding, descriptive themes, then analytical themes that answer the question.</p>
+  </section>
+
+  <section aria-labelledby="ep-h">
+    <p class="k">Evidence base</p>
+    <h2 id="ep-h">Five episodes the studies cover</h2>
+    <p>Most of the ten studies examine more than one episode. Each dot is one study.</p>
+    <div class="eps">
+      <div class="ep"><span>US–China trade war</span><span class="dots" aria-label="5 studies"><i></i><i></i><i></i><i></i><i></i></span></div>
+      <div class="ep"><span>Russia–Ukraine war and its logistics effects</span><span class="dots" aria-label="4 studies"><i></i><i></i><i></i><i></i><i class="off"></i></span></div>
+      <div class="ep"><span>Red Sea maritime crisis, 2023–24</span><span class="dots" aria-label="3 studies"><i></i><i></i><i></i><i class="off"></i><i class="off"></i></span></div>
+      <div class="ep"><span>US semiconductor export controls</span><span class="dots" aria-label="2 studies"><i></i><i></i><i class="off"></i><i class="off"></i><i class="off"></i></span></div>
+      <div class="ep"><span>Brexit and trade policy</span><span class="dots" aria-label="2 studies"><i></i><i></i><i class="off"></i><i class="off"></i><i class="off"></i></span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="th-h">
+    <p class="k">Findings</p>
+    <h2 id="th-h">Four themes</h2>
+    <div class="themes">
+      <div class="theme-item"><span class="no">1</span><div><h3>Ripple effects spread disruption</h3><p>Geopolitical shocks change the structure of a supply network, not just its stock levels. Lean, concentrated sourcing speeds the spread: firms with highly concentrated sourcing took disproportionate output losses when tariffs arrived.</p></div></div>
+      <div class="theme-item"><span class="no">2</span><div><h3>Resilience pays most when built in advance</h3><p>Firms combining redundancy (dual sourcing, buffer stock) with flexibility (postponement, adaptive planning) recover faster than firms relying on either one alone.</p></div></div>
+      <div class="theme-item"><span class="no">3</span><div><h3>Redesign: regionalising and reshoring</h3><p>Temporary workarounds harden into permanent structure. Rerouted corridors attract investment and stay, and export controls push targeted countries to build their own capability.</p></div></div>
+      <div class="theme-item"><span class="no">4</span><div><h3>Governance moderates the outcome</h3><p>Boards that build geopolitical risk into scenario planning and supplier diversification recover faster. Modular value chains, with capable and diverse suppliers, switch partners more easily than captive ones.</p></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="fw-h">
+    <p class="k">Conceptual framework</p>
+    <h2 id="fw-h">Disruption, Response, Reconfiguration</h2>
+    <p>The group combined the four themes into a three-layer model of how a geopolitical shock moves through a supply chain over time.</p>
+    <div class="flow">
+      <div class="layer"><p class="k">Layer 1</p><h3>Disruption</h3><p>Shocks enter through trade policy, armed conflict, maritime threats and regulatory fragmentation, amplified by lean and concentrated networks.</p></div>
+      <div class="layer"><p class="k">Layer 2</p><h3>Response</h3><p>Operational moves (buffers, dual sourcing, rerouting) and strategic ones (redesign, switching, upgrading), shaped by governance and policy.</p></div>
+      <div class="layer"><p class="k">Layer 3</p><h3>Reconfiguration</h3><p>Lasting changes in geography and governance that become the starting point for the next shock.</p></div>
+    </div>
+    <p class="loop">Feedback loop: reconfiguration reshapes the institutional landscape, which changes how the next disruption lands.</p>
+  </section>
+
+  <section aria-labelledby="fig-h">
+    <p class="k">Figures from the evidence</p>
+    <h2 id="fig-h">What disruption costs</h2>
+    <div class="figs">
+      <div class="fig"><b>30%+</b><span>of Asia–Europe container traffic rerouted around the Cape of Good Hope in the Red Sea crisis, adding 10 to 14 days.</span><cite>López et al., 2025</cite></div>
+      <div class="fig"><b>3–5×</b><span>higher cost of resilience investment made after a disruption starts, compared with investment made in advance.</span><cite>Ahmadi Digehsara et al., 2025</cite></div>
+      <div class="fig"><b>12–36</b><span>months for capital-intensive manufacturers to fully reconfigure their networks after the US–China trade war.</span><cite>Bednarski et al., 2023</cite></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="mi-h">
+    <p class="k">Conclusion</p>
+    <h2 id="mi-h">Geopolitical risk is now a first-order strategic variable</h2>
+    <p>Supply chains designed only for efficiency in stable conditions are systematically exposed. The practical implications:</p>
+    <ul class="impl">
+      <li><b>Invest before the shock.</b> Dual sourcing, regional backup capacity and strategic inventory cost less and protect continuity better than emergency response.</li>
+      <li><b>Some redundancy is a feature.</b> Moderate decentralisation reduced network vulnerability in the evidence, even though it costs more in calm periods.</li>
+      <li><b>Know your switching options in advance.</b> Building intelligence on alternative suppliers and routes before a disruption is what makes switching possible when it is needed.</li>
+      <li><b>Put geopolitics on the board agenda.</b> Scenario planning and institutionalised supplier diversification are linked to faster recovery.</li>
+    </ul>
+  </section>
+</main>
+
+<footer><div class="wrap cx">
+  <span>Samrat Das · samrat.das.2603@gmail.com</span>
+  <span><a href="https://www.linkedin.com/in/samrat-das-95211138a">LinkedIn</a> · <a href="https://claude.ai/artifact/No8ZowJc8AGERScSrxWYuy">Portfolio</a></span>
+</div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.querySelector('.theme');
+  function cur(){var t=root.getAttribute('data-theme'); if(t) return t; return (window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}
+  function sync(){btn.setAttribute('aria-label', cur()==='dark'?'Switch to light mode':'Switch to dark mode');}
+  btn.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark'; root.setAttribute('data-theme',n); try{localStorage.setItem('sd-theme',n);}catch(e){} sync();});
+  sync();
+})();
+</script>
+
+</html>

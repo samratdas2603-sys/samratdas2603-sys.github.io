@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The plan was sound. The structure would stall it. | easyJet case | Samrat Das</title>
+<meta name="description" content="An implementation analysis of three easyJet initiatives: a codeshare, deeper AI in operations and a loyalty platform, and why the organisation's structure mattered more than the plan.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The plan was sound. The structure would stall it.">
+<meta property="og:description" content="Three easyJet initiatives, each cutting across departments. Why a matrix structure, not a better plan, was the difference.">
+<meta name="twitter:card" content="summary">
+<script>
+(function(){try{var q=new URLSearchParams(location.search).get('theme');var s=q||localStorage.getItem('sd-theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);if(q)localStorage.setItem('sd-theme',q);}}catch(e){}})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Chivo+Mono:wght@500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --board:#15181D;      /* departures board: the dark ground */
+  --flap:#23272E;
+  --amber:#FFB000;      /* airport signage amber */
+  --amber-deep:#9A6700;
+  --paper:#FFFFFF;
+  --tint:#F3F4F6;
+  --ink:#16191F;
+  --text:#262A31;
+  --muted:#5F6672;
+  --rule:#DCDFE4;
+  --display:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Chivo Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#111418; --tint:#191D23; --ink:#EEF0F3; --text:#D5D9DF; --muted:#9AA2AD; --rule:#2C323B; --amber-deep:#FFB000;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#111418; --tint:#191D23; --ink:#EEF0F3; --text:#D5D9DF; --muted:#9AA2AD; --rule:#2C323B; --amber-deep:#FFB000;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--display);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--ink);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:4px}
+svg{max-width:100%}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--board);border-bottom:2px solid var(--amber)}
+.top-in{max-width:1080px;margin:0 auto;padding:10px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.top a{color:#fff;text-decoration:none;font-weight:700;font-size:15px}
+.top .r{display:flex;align-items:center;gap:18px}
+.top a.back{color:#C8CDD4;font-weight:500}
+.top a.back:hover{color:#fff}
+.theme{appearance:none;border:1.5px solid #4A515C;background:transparent;color:#fff;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer}
+.theme:hover{border-color:var(--amber)}
+.theme svg{width:18px;height:18px}
+.theme .sun{display:none}
+:root[data-theme="dark"] .theme .sun{display:block}
+:root[data-theme="dark"] .theme .moon{display:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .theme .sun{display:block}
+  :root:not([data-theme="light"]) .theme .moon{display:none}
+}
+
+/* hero with departures board */
+.hero{background:var(--board);color:#fff}
+.hero-in{max-width:1080px;margin:0 auto;padding:78px 24px 64px}
+.kick{font-family:var(--display);font-size:15px;color:#A9B0BA;margin:0 0 20px}
+.hero h1{font-weight:800;font-size:clamp(40px,6.2vw,76px);line-height:1.02;letter-spacing:-.03em;margin:0;max-width:15ch}
+.hero h1 .a{color:var(--amber)}
+.stand{font-family:var(--serif);font-size:clamp(19px,2.2vw,22px);line-height:1.55;color:#D9DDE2;max-width:54ch;margin:26px 0 0}
+.dep{margin:46px 0 0;max-width:860px;background:#0C0E11;border-radius:10px;padding:16px 16px 10px;border:1px solid #2A2F37}
+.dep-h{display:grid;grid-template-columns:90px 1fr 120px 130px;gap:12px;padding:0 10px 10px;font-family:var(--mono);font-size:12px;color:#8A919B;letter-spacing:.06em}
+.row{display:grid;grid-template-columns:90px 1fr 120px 130px;gap:12px;align-items:center;padding:10px;border-top:1px solid #1E2229}
+.row span{font-family:var(--mono);font-weight:700;font-size:16px;color:var(--amber)}
+.row .dest{color:#F2F2F2}
+.row .st{font-size:13px;padding:3px 8px;border:1.5px solid var(--amber);border-radius:3px;justify-self:start}
+.row .st.w{color:#fff;border-color:#8A919B}
+.cell{display:inline-block;background:var(--flap);padding:2px 6px;border-radius:3px;box-shadow:inset 0 -1px 0 #000}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.read{max-width:680px}
+section{padding:72px 0 0}
+.sn{font-family:var(--display);font-size:14px;font-weight:700;color:var(--amber-deep);margin:0 0 8px}
+h2{font-weight:800;font-size:clamp(28px,3.8vw,40px);line-height:1.08;letter-spacing:-.025em;color:var(--ink);margin:0 0 20px;max-width:22ch}
+h3{font-weight:700;font-size:18px;color:var(--ink);margin:0 0 8px}
+p{font-family:var(--serif);font-size:19px;line-height:1.68;margin:0 0 18px;max-width:64ch}
+strong{font-weight:600;color:var(--ink)}
+
+.panel{margin:34px 0 8px;padding:28px;background:var(--tint);border-radius:12px}
+@media (min-width:1100px){.panel{width:900px}}
+.ph{font-family:var(--display);font-weight:700;font-size:19px;color:var(--ink);margin:0 0 4px;max-width:none}
+.ps{font-family:var(--display);color:var(--muted);font-size:15px;margin:0 0 20px;max-width:none}
+.src{font-family:var(--display);font-size:13px;color:var(--muted);margin:18px 0 0;padding-top:12px;border-top:1px solid var(--rule);line-height:1.5;max-width:none}
+
+/* at a glance + approach + sources */
+.glance{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.glance div{padding:18px 18px 18px 0;margin-right:18px;border-right:1px solid var(--rule)}
+.glance div:last-child{border-right:none;margin-right:0}
+.glance .n{font-family:var(--display);font-weight:800;font-size:30px;line-height:1.05;color:var(--ink);margin:0 0 6px;max-width:none}
+.glance .l{font-family:var(--display);font-size:14px;color:var(--muted);line-height:1.45;margin:0;max-width:none}
+.appr{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:22px 0 0}
+.appr .lab{font-size:14px;font-weight:700;color:var(--ink);margin-right:4px}
+.appr .c{font-size:13.5px;padding:5px 11px;border-radius:999px;border:1.5px solid var(--rule);color:var(--text);background:var(--paper)}
+.appr .c.a{border-color:var(--amber);background:rgba(255,176,0,.14)}
+
+/* kaleidoscope */
+.kal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.k{background:var(--paper);border-radius:10px;padding:16px;border-top:4px solid var(--rule)}
+.k.good{border-top-color:#3E8E5C}
+.k.mixed{border-top-color:var(--amber)}
+.k.risk{border-top-color:#C4472F}
+.k p{max-width:none}
+.k .t{font-family:var(--display);font-weight:700;color:var(--ink);font-size:16px;margin:0 0 2px}
+.k .v{font-family:var(--display);font-size:12.5px;font-weight:700;margin:0 0 8px}
+.k.good .v{color:#2F7A4B}
+.k.mixed .v{color:var(--amber-deep)}
+.k.risk .v{color:#B23C26}
+.k p{font-family:var(--display);font-size:14px;line-height:1.5;color:var(--text);margin:0;max-width:none}
+.k.verdict{background:var(--board);color:#fff;border-top-color:var(--amber)}
+.k.verdict .t{color:#fff}
+.k.verdict p{color:#D9DDE2}
+
+/* structure switch */
+.switch{display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;padding:3px;margin:0 0 18px;background:var(--paper)}
+.switch button{appearance:none;border:none;background:transparent;font-family:var(--display);font-weight:700;font-size:14.5px;color:var(--ink);padding:8px 16px;border-radius:999px;cursor:pointer}
+.switch button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.org{display:grid;grid-template-columns:1.25fr 1fr;gap:24px;align-items:start}
+.org svg{width:100%;height:auto;display:block;background:var(--paper);border-radius:10px}
+.o-box{fill:var(--paper);stroke:var(--ink);stroke-width:1.6}
+.o-top{fill:var(--ink)}
+.o-t{font-family:var(--display);font-size:11px;font-weight:700;fill:var(--ink)}
+.o-tw{font-family:var(--display);font-size:11.5px;font-weight:700;fill:var(--paper)}
+.o-ln{stroke:var(--ink);stroke-width:1.4;fill:none}
+.o-slow{stroke:#C4472F;stroke-width:2.2;fill:none;stroke-dasharray:5 5}
+.o-lead{fill:var(--amber)}
+.o-lt{font-family:var(--display);font-size:11px;font-weight:700;fill:#15181D}
+.o-dot{fill:var(--ink)}
+.o-grid{stroke:var(--rule);stroke-width:1}
+.o-fn{font-family:var(--display);font-size:11.5px;font-weight:700;fill:var(--muted)}
+.view{display:none}
+.view.on{display:block}
+.org svg.view{display:none}
+.org svg.view.on{display:block}
+.pts{margin:0;padding:0;list-style:none}
+.pts li{padding:11px 0;border-top:1px solid var(--rule);font-size:15px;line-height:1.5}
+.pts li b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
+.pts.bad li b::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#C4472F;margin-right:8px}
+.pts.good li b::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--amber);margin-right:8px}
+
+/* levers */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:28px 0 0}
+.box{background:var(--tint);border-radius:12px;padding:20px}
+.box ol{margin:10px 0 0;padding-left:20px}
+.box li{font-size:15.5px;line-height:1.55;margin:0 0 10px}
+.box li b{color:var(--ink)}
+
+/* communication */
+.comms{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cm{background:var(--paper);border-radius:10px;padding:18px}
+.cm h3{font-size:17px}
+.cm .lb{font-size:12.5px;font-weight:700;color:var(--muted);margin:10px 0 3px}
+.cm p{font-family:var(--display);font-size:14.5px;line-height:1.5;margin:0;max-width:none}
+.cm q{display:block;font-family:var(--serif);font-style:italic;font-size:15.5px;color:var(--ink);quotes:"\201C" "\201D"}
+
+.oq{list-style:none;margin:8px 0 0;padding:0;max-width:680px;counter-reset:q}
+.oq li{position:relative;padding:14px 0 14px 44px;border-top:1px solid var(--rule);font-size:16px;line-height:1.55;color:var(--text)}
+.oq li:last-child{border-bottom:1px solid var(--rule)}
+.oq li::before{counter-increment:q;content:counter(q);position:absolute;left:0;top:13px;width:28px;height:28px;border-radius:50%;border:2px solid var(--amber);color:var(--ink);font-weight:700;font-size:14px;display:grid;place-items:center}
+.oq b{color:var(--ink)}
+.outc{font-size:18px;line-height:1.65;color:var(--text);max-width:64ch}
+.srcs{font-size:14px;color:var(--muted);line-height:1.6;max-width:760px;margin:0;padding:0;list-style:none}
+.srcs li{padding:7px 0;border-top:1px solid var(--rule)}
+.asof{font-family:var(--display);font-size:14px;color:var(--ink);font-weight:700;margin:0 0 12px}
+.end{margin:56px 0 0;padding:26px 0 60px;border-top:1px solid var(--rule);font-size:15px}
+.end a{font-weight:700;margin-right:18px}
+footer{background:var(--board);color:#A9B0BA;border-top:2px solid var(--amber)}
+footer .cx{max-width:1080px;margin:0 auto;padding:22px 24px;display:flex;justify-content:space-between;align-items:center;gap:14px 24px;flex-wrap:wrap}
+footer b{color:#fff;font-size:15px}
+footer nav a{color:#fff;font-weight:600;font-size:14.5px;text-decoration:none;margin-left:20px}
+footer nav a:first-child{margin-left:0}
+footer nav a:hover{text-decoration:underline}
+
+@media (max-width:860px){
+  .kal{grid-template-columns:1fr 1fr}
+  .org,.two{grid-template-columns:1fr}
+  .comms{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  p{font-size:17.5px}
+  .hero-in{padding:52px 20px 50px}
+  section{padding:54px 0 0}
+  .panel{padding:18px 14px}
+  .glance{grid-template-columns:1fr 1fr}
+  .glance div:nth-child(2){border-right:none;margin-right:0}
+  .glance div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+  .kal{grid-template-columns:1fr}
+  .dep-h{display:none}
+  .row{grid-template-columns:62px 1fr;row-gap:6px}
+  .row .tm,.row .st{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.top,.switch,.theme{display:none}.view{display:block}.panel{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <a href="#">Samrat Das</a>
+    <div class="r">
+      <a class="back" href="https://claude.ai/artifact/No8ZowJc8AGERScSrxWYuy">Back to portfolio</a>
+      <button class="theme" type="button" aria-label="Switch to dark mode">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-in">
+    <p class="kick">Independent strategy implementation analysis</p>
+    <h1>The plan was sound. <span class="a">The structure would stall it.</span></h1>
+    <p class="stand">easyJet's implementation plan set out three initiatives, each cutting across several departments at once. I assessed whether the organisation could actually deliver them, and found the biggest risk was not in the plan but in how the company was organised to carry it out.</p>
+    <div class="dep" role="table" aria-label="The three initiatives">
+      <div class="dep-h" role="row"><span role="columnheader">INIT.</span><span role="columnheader">INITIATIVE</span><span role="columnheader">DURATION</span><span role="columnheader">STATUS</span></div>
+      <div class="row" role="row"><span role="cell"><span class="cell">EZ 01</span></span><span class="dest" role="cell">Codeshare with Etihad Airways</span><span class="tm" role="cell">8–9 MONTHS</span><span class="st w" role="cell">PARTNER DEAL</span></div>
+      <div class="row" role="row"><span role="cell"><span class="cell">EZ 02</span></span><span class="dest" role="cell">Deeper AI with Airbus Skywise</span><span class="tm" role="cell">12 MONTHS</span><span class="st" role="cell">PILOT FIRST</span></div>
+      <div class="row" role="row"><span role="cell"><span class="cell">EZ 03</span></span><span class="dest" role="cell">Digital self-service and loyalty</span><span class="tm" role="cell">16 MONTHS</span><span class="st w" role="cell">PHASED BUILD</span></div>
+    </div>
+  </div>
+</div>
+
+<main>
+<div class="wrap">
+
+  <section>
+    <p class="sn">At a glance</p>
+    <div class="glance">
+      <div><p class="n">3</p><p class="l">initiatives running at the same time</p></div>
+      <div><p class="n">8–16</p><p class="l">months each, on a phased timeline</p></div>
+      <div><p class="n">7</p><p class="l">change factors tested for feasibility</p></div>
+      <div><p class="n">3</p><p class="l">staff groups with their own communication plan</p></div>
+    </div>
+    <div class="appr"><span class="lab">Approach</span><span class="c">Change kaleidoscope</span><span class="c">Deliberate and emergent strategy</span><span class="c a">Organisational structure</span><span class="c">Political levers</span><span class="c">Transformational leadership</span><span class="c">Advocacy and inquiry</span></div>
+  </section>
+
+  <section>
+    <div class="read">
+      <p class="sn">The question</p>
+      <h2>Can the organisation actually deliver it?</h2>
+      <p>The plan aimed to extend easyJet's reach, sharpen its operations and keep more customers, without giving up its low-cost model. Most strategy work stops at whether a plan is right. I looked at whether the company was set up to execute it: the context, the structure, the politics and the leadership each initiative would need.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="read">
+      <p class="sn">The change context</p>
+      <h2>Feasible, if resourced and sequenced</h2>
+      <p>I tested the plan against seven factors that shape how change should be designed. Most were workable. Two were real concerns, and both came from running all three initiatives at once.</p>
+    </div>
+    <div class="panel">
+      <p class="ph">Seven factors, one verdict</p>
+      <p class="ps">Favourable, mixed or a concern for implementation</p>
+      <div class="kal">
+        <div class="k good"><p class="t">Time</p><p class="v">Favourable</p><p>Realistic rather than critical, allowing a planned, phased rollout.</p></div>
+        <div class="k mixed"><p class="t">Scope</p><p class="v">Mixed</p><p>Broad across functions, but a realignment rather than a new business model.</p></div>
+        <div class="k mixed"><p class="t">Readiness</p><p class="v">Mixed</p><p>Technically ready for Skywise, less so culturally for AI-assisted decisions.</p></div>
+        <div class="k mixed"><p class="t">Capability</p><p class="v">Mixed</p><p>Gaps acknowledged and covered by partners, specialists and pilots.</p></div>
+        <div class="k risk"><p class="t">Capacity</p><p class="v">Concern</p><p>Three initiatives at once stretch shared IT teams and senior attention.</p></div>
+        <div class="k risk"><p class="t">Diversity</p><p class="v">Concern</p><p>Pilots, crew, ground staff, IT, partners, customers and unions all differ.</p></div>
+        <div class="k mixed"><p class="t">Power</p><p class="v">Mixed</p><p>Each initiative needs a different group's backing: the board, operations, IT.</p></div>
+        <div class="k verdict"><p class="t">Verdict</p><p class="v" style="color:var(--amber)">Evolution</p><p>Change should be transformational but staged, not revolutionary.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="read">
+      <p class="sn">The central finding</p>
+      <h2>Three initiatives, and every one crosses departments</h2>
+      <p>Under a traditional hierarchy, every cross-department decision has to travel up to senior management and back down. With three initiatives running at once, that becomes the bottleneck. I recommended a matrix structure instead.</p>
+    </div>
+    <div class="panel">
+      <p class="ph">How each structure carries the plan</p>
+      <p class="ps">Switch between the two</p>
+      <div class="switch" role="group" aria-label="Choose structure">
+        <button type="button" data-v="h" aria-pressed="true">Functional hierarchy</button>
+        <button type="button" data-v="m" aria-pressed="false">Matrix</button>
+      </div>
+      <div class="org">
+        <div>
+          <svg class="view on" id="vh" viewBox="0 0 440 280" role="img" aria-label="Functional hierarchy: decisions route up through senior management and back down">
+            <rect class="o-top" x="140" y="16" width="160" height="36" rx="6"/><text class="o-tw" x="220" y="39" text-anchor="middle">Senior management</text>
+            <path class="o-ln" d="M220 52 V82 M50 82 H390 M50 82 V104 M135 82 V104 M220 82 V104 M305 82 V104 M390 82 V104"/>
+            <g><rect class="o-box" x="8" y="104" width="84" height="40" rx="6"/><text class="o-t" x="50" y="128" text-anchor="middle">Operations</text></g>
+            <g><rect class="o-box" x="93" y="104" width="84" height="40" rx="6"/><text class="o-t" x="135" y="128" text-anchor="middle">IT</text></g>
+            <g><rect class="o-box" x="178" y="104" width="84" height="40" rx="6"/><text class="o-t" x="220" y="128" text-anchor="middle">Commercial</text></g>
+            <g><rect class="o-box" x="263" y="104" width="84" height="40" rx="6"/><text class="o-t" x="305" y="128" text-anchor="middle">Customer</text></g>
+            <g><rect class="o-box" x="348" y="104" width="84" height="40" rx="6"/><text class="o-t" x="390" y="128" text-anchor="middle">Finance</text></g>
+            <path class="o-slow" d="M50 144 C50 200 135 200 135 150"/>
+            <path class="o-slow" d="M135 144 C135 230 305 230 305 150"/>
+            <path class="o-slow" d="M50 104 C50 60 130 40 140 34"/>
+            <text class="o-fn" x="220" y="262" text-anchor="middle">Each cross-department decision escalates up and back down</text>
+          </svg>
+          <svg class="view" id="vm" viewBox="0 0 440 280" role="img" aria-label="Matrix: each initiative has a dedicated lead drawing people from every function it needs">
+            <g class="o-fn"><text x="148" y="30" text-anchor="middle">Ops</text><text x="208" y="30" text-anchor="middle">IT</text><text x="268" y="30" text-anchor="middle">Comm.</text><text x="328" y="30" text-anchor="middle">Cust.</text><text x="388" y="30" text-anchor="middle">Finance</text></g>
+            <path class="o-grid" d="M148 42 V240 M208 42 V240 M268 42 V240 M328 42 V240 M388 42 V240"/>
+            <rect class="o-lead" x="6" y="60" width="112" height="36" rx="6"/><text class="o-lt" x="62" y="83" text-anchor="middle">Codeshare lead</text>
+            <path class="o-ln" d="M114 78 H388"/>
+            <circle class="o-dot" cx="148" cy="78" r="8"/><circle class="o-dot" cx="208" cy="78" r="8"/><circle class="o-dot" cx="268" cy="78" r="8"/><circle class="o-dot" cx="328" cy="78" r="8"/>
+            <rect class="o-lead" x="6" y="126" width="112" height="36" rx="6"/><text class="o-lt" x="62" y="149" text-anchor="middle">AI lead</text>
+            <path class="o-ln" d="M114 144 H388"/>
+            <circle class="o-dot" cx="148" cy="144" r="8"/><circle class="o-dot" cx="208" cy="144" r="8"/><circle class="o-dot" cx="388" cy="144" r="8"/>
+            <rect class="o-lead" x="6" y="192" width="112" height="36" rx="6"/><text class="o-lt" x="62" y="215" text-anchor="middle">Loyalty lead</text>
+            <path class="o-ln" d="M114 210 H388"/>
+            <circle class="o-dot" cx="208" cy="210" r="8"/><circle class="o-dot" cx="268" cy="210" r="8"/><circle class="o-dot" cx="328" cy="210" r="8"/>
+            <text class="o-fn" x="250" y="266" text-anchor="middle">IT is needed by all three: the shared pressure point</text>
+          </svg>
+        </div>
+        <div>
+          <ul class="pts bad view on" id="ph">
+            <li><b>Slow decisions</b>Approvals move up and down management layers, delaying alignment across operations, IT, commercial and finance.</li>
+            <li><b>Departmental goals win</b>Managers optimise their own KPIs rather than the three initiatives together, fragmenting execution.</li>
+            <li><b>Resources drift</b>When projects compete for the same people, they flow to whichever department holds the most power.</li>
+          </ul>
+          <ul class="pts good view" id="pm">
+            <li><b>Clear ownership</b>Each initiative gets a dedicated lead, with people drawn from every function it needs.</li>
+            <li><b>Expertise kept</b>Staff stay in their functions, so specialist knowledge is not lost to the projects.</li>
+            <li><b>Rebalancing at the top</b>Senior management can move people and budget between the three streams as priorities shift.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="src">Functions involved per initiative follow the implementation plan: the codeshare spans network planning, revenue, IT and customer teams; Skywise spans operations, engineering and finance; the loyalty platform spans IT, marketing and customer operations.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="read">
+      <p class="sn">Making it stick</p>
+      <h2>A deliberate plan, with room to learn</h2>
+      <p>The plan was a classic deliberate strategy: set objectives, timelines and budgets from the top. That gave it structure, but little room to learn as it ran. I proposed adding emergent elements, plus four political levers to manage resistance.</p>
+    </div>
+    <div class="two">
+      <div class="box"><h3>Three adjustments to the plan</h3><ol>
+        <li><b>Quarterly feedback loops</b> after each AI phase, so the rollout adapts to real results.</li>
+        <li><b>A cross-functional learning team</b> recording what each initiative teaches the others.</li>
+        <li><b>Local flexibility</b> for regional managers on codeshare ground procedures.</li>
+      </ol></div>
+      <div class="box"><h3>Four political levers</h3><ol>
+        <li><b>Resource control:</b> priority training access for early adopters of AI tools.</li>
+        <li><b>Alliances:</b> respected senior pilots and operations managers as internal advisers.</li>
+        <li><b>Timing:</b> launching the AI pilot when operational performance is strong.</li>
+        <li><b>Symbolic action:</b> leaders visibly using the new tools, including flying the first codeshare service.</li>
+      </ol></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="read">
+      <p class="sn">Leadership and communication</p>
+      <h2>Advocate the why, then ask before assuming</h2>
+      <p>I recommended transformational leadership, with executives modelling the change rather than just announcing it. For each staff group, the plan pairs advocacy, explaining why the change matters, with inquiry, asking what the change looks like from where they sit.</p>
+    </div>
+    <div class="panel">
+      <div class="comms">
+        <div class="cm"><h3>Operations staff</h3><p class="lb">Advocacy</p><p>Why AI is needed: competitive pressure, efficiency and safety.</p><p class="lb">Inquiry</p><q>What concerns do you have about AI-driven scheduling?</q></div>
+        <div class="cm"><h3>IT teams</h3><p class="lb">Advocacy</p><p>Why all three matter, and how their workload will be prioritised.</p><p class="lb">Inquiry</p><q>What resources would make this timeline achievable?</q></div>
+        <div class="cm"><h3>Customer service</h3><p class="lb">Advocacy</p><p>How self-service removes repetitive queries and frees staff for better work.</p><p class="lb">Inquiry</p><q>Which customer pain points should the platform solve first?</q></div>
+      </div>
+      <p class="src">Without this, silence fills with rumours about job losses, problems surface late, and frontline solutions never reach decision-makers.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="read">
+      <p class="sn">Outcome</p>
+      <h2>Where it landed</h2>
+      <p class="outc">The analysis judged the plan feasible if properly resourced and carefully sequenced, and turned that into specific actions: evolutionary rather than revolutionary change, a matrix structure with a dedicated lead for each initiative, three adjustments to let a deliberate plan learn, and a communication plan for each staff group.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="read">
+      <p class="sn">Open questions</p>
+      <h2>What the analysis could not settle</h2>
+    </div>
+    <ol class="oq">
+      <li><b>Can shared IT carry all three at once?</b> Every initiative depends on the same IT teams. If capacity falls short, one initiative may need to start later.</li>
+      <li><b>How will crews and unions respond to AI-assisted decisions?</b> Cultural readiness was the weakest part of the context, and it could slow the Skywise rollout.</li>
+      <li><b>Does a codeshare fit a point-to-point model?</b> It is the largest strategic departure of the three, and its commercial return is the least tested.</li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="read">
+      <p class="sn">Sources</p>
+      <p class="asof">Data as of January 2026</p>
+    </div>
+    <ul class="srcs">
+      <li>easyJet three-initiative implementation plan: Etihad codeshare, Airbus Skywise integration, digital self-service and loyalty</li>
+      <li>Mintzberg and Waters (1985) on deliberate and emergent strategy</li>
+      <li>Skačkauskienė and Leonavičiūtė (2025); Moghadasnian and Rajol (2025) on strategic change</li>
+      <li>Buhusayen, Seet and Coetzer (2021) on front-line management in organisational change</li>
+      <li>Lukinaitė and Sondaitė (2017) on organisational structure; Izzo (2019) on airline data analytics</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="read">
+      <div class="end"><a href="https://claude.ai/artifact/No8ZowJc8AGERScSrxWYuy">Back to portfolio</a><a href="https://claude.ai/artifact/MejHof576CjvoezKNk1NiG">Home DLBX case</a></div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer><div class="cx">
+  <b>Samrat Das</b>
+  <nav aria-label="Contact"><a href="mailto:samrat.das.2603@gmail.com">Email</a><a href="https://www.linkedin.com/in/samrat-das-95211138a">LinkedIn</a><a href="https://claude.ai/artifact/No8ZowJc8AGERScSrxWYuy">Portfolio</a></nav>
+</div></footer>
+
+<script>
+(function(){
+  // structure switch
+  var bs=document.querySelectorAll('.switch button');
+  function show(v){
+    bs.forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.v===v));});
+    document.getElementById('vh').classList.toggle('on',v==='h');
+    document.getElementById('vm').classList.toggle('on',v==='m');
+    document.getElementById('ph').classList.toggle('on',v==='h');
+    document.getElementById('pm').classList.toggle('on',v==='m');
+  }
+  bs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.v);});});
+
+  // theme switch
+  var root=document.documentElement, btn=document.querySelector('.theme');
+  function current(){
+    var t=root.getAttribute('data-theme');
+    if(t) return t;
+    return (window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';
+  }
+  function label(){btn.setAttribute('aria-label', current()==='dark'?'Switch to light mode':'Switch to dark mode');}
+  btn.addEventListener('click',function(){
+    var next=current()==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('sd-theme',next);}catch(e){}
+    label(); carry();
+  });
+  function carry(){document.querySelectorAll('a[href^="https://claude.ai/artifact/"]').forEach(function(a){var b=a.getAttribute('href').split('?')[0];a.setAttribute('href',b+'?theme='+current());});}
+  label(); carry();
+})();
+</script>
+</body>
+</html>
